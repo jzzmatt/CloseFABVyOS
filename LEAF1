@@ -1,0 +1,41 @@
+set high-availability vrrp group vipGTW110 hello-source-address '10.110.0.252'
+set high-availability vrrp group vipGTW110 interface 'br110'
+set high-availability vrrp group vipGTW110 peer-address '10.110.0.251'
+set high-availability vrrp group vipGTW110 preempt-delay '180'
+set high-availability vrrp group vipGTW110 priority '200'
+set high-availability vrrp group vipGTW110 virtual-address '10.110.0.254/24'
+set high-availability vrrp group vipGTW110 vrid '10'
+set interfaces bridge br92 address '192.168.92.254/24'
+set interfaces bridge br92 description 'GTW L3 LOGICAL SW'
+set interfaces bridge br92 member interface eth2
+set interfaces bridge br92 member interface vxlan92
+set interfaces bridge br110 address '10.110.0.252/24'
+set interfaces bridge br110 member interface eth1
+set interfaces bridge br110 member interface vxlan110
+set interfaces ethernet eth0 address '10.1.1.2/30'
+set interfaces ethernet eth0 description 'UPLINK & VTEP'
+set interfaces ethernet eth0 hw-id '0c:67:1c:7a:ca:00'
+set interfaces ethernet eth1 description 'VXLAN 110'
+set interfaces ethernet eth1 hw-id '0c:67:1c:7a:ca:01'
+set interfaces ethernet eth2 description 'VXLAN 92'
+set interfaces ethernet eth2 hw-id '0c:67:1c:7a:ca:02'
+set interfaces ethernet eth3 hw-id '0c:67:1c:7a:ca:03'
+set interfaces loopback lo
+set interfaces vxlan vxlan92 link 'eth0'
+set interfaces vxlan vxlan92 remote '10.1.2.2'
+set interfaces vxlan vxlan92 vni '10092'
+set interfaces vxlan vxlan110 link 'eth0'
+set interfaces vxlan vxlan110 remote '10.1.2.2'
+set interfaces vxlan vxlan110 vni '100110'
+set protocols ospf area 0 network '10.1.1.0/24'
+set system config-management commit-revisions '100'
+set system console device ttyS0 speed '115200'
+set system host-name 'LEAF1'
+set system login user vyos authentication encrypted-password '$6$QxPS.uk6mfo$9QBSo8u1FkH16gMyAVhus6fU3LOzvLR9Z9.82m3tiHFAxTtIkhaZSWssSgzt4v4dGAL8rhVQxTg0oAG9/q11h/'
+set system login user vyos authentication plaintext-password ''
+set system login user vyos level 'admin'
+set system ntp server 0.pool.ntp.org
+set system ntp server 1.pool.ntp.org
+set system ntp server 2.pool.ntp.org
+set system syslog global facility all level 'info'
+set system syslog global facility protocols level 'debug'
